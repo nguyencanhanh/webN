@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <title>Responsive Dashboard Design #2 | AsmrProg</title>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="logo">
+            <i class='bx bx-network-chart'></i>
+            <div class="logo-name"><span>My</span>Data</div>
+        </a>
+        <ul class="side-menu">
+            <li><a href="#"><i class='bx bxs-dashboard'></i>Dashboard</a></li>
+            <li id="openBtn"><a href="#"><i class='bx bx-code-curly'></i>Ota</a></li>
+            <li><a href="#"><i class='bx bx-bluetooth'></i>Node1</a></li>
+            <li><a href="#"><i class='bx bx-bluetooth'></i></i>Node2</a></li>
+            <li><a href="#"><i class='bx bx-bluetooth'></i></i>Node3</a></li>
+            <li><a href="#"><i class='bx bx-cog'></i>Settings</a></li>
+        </ul>
+        <div id="popup" class="popup">
+            <div class="popup-content">
+                <span class="close" id="closeBtn">&times;</span>
+                <p>This is a popup window!</p>
+                <form action="http://localhost:5501/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="fileInput" />
+                    <button type="button" onclick="uploadFile()">Upload</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- End of Sidebar -->
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Navbar -->
+        <nav>
+            <i class='bx bx-menu'></i>
+            <form action="#">
+                <div class="form-input">
+                    <button class="click"><i class='bx bx-export'></i></button>
+                </div>
+            </form>
+            <input type="checkbox" id="theme-toggle" hidden>
+            <label for="theme-toggle" class="theme-toggle"></label>
+            <a href="#" class="notif">
+                <i class='bx bx-bell'></i>
+                <span class="count">12</span>
+            </a>
+            <a href="#" class="profile">
+                <img src="images/logo.png">
+            </a>
+        </nav>
+        <!-- End of Navbar -->
+
+        <main>
+            <div class="header">
+                <div class="left">
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+
+            <!-- Insights -->
+            <div class="export-data">
+                <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+                <ul class="warning">
+                    <li><i class='bx bx-circle' id="greenWarning"></i></li>
+                    <li><i class='bx bx-circle' id="yellowWarning"></i></li>
+                    <li><i class='bx bx-circle' id="redWarning"></i></li>
+                </ul>
+                <button onclick="publishData()">Publish Data</button>
+            </div>
+            <!-- End of Insights -->
+
+            <div class="bottom-data">
+                <div class="orders">
+                    <div class="header">
+                        <i class='bx bx-receipt'></i>
+                        <h3>Recent temperature </h3>
+                        <i class='bx bx-search'></i>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Node Sensor</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <img src="images/profile-1.jpg">
+                                    <p>200C</p>
+                                </td>
+                                <td>14-08-2023</td>
+                                <td><span class="status completed">Completed</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="images/profile-1.jpg">
+                                    <p>200C</p>
+                                </td>
+                                <td>14-08-2023</td>
+                                <td><span class="status pending">Pending</span></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src="images/profile-1.jpg">
+                                    <p>200C</p>
+                                </td>
+                                <td>14-08-2023</td>
+                                <td><span class="status process">Processing</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Reminders -->
+                <div class="reminders">
+                    <div class="header">
+                        <img src="images/temperature.png" style="height: 1.7rem;">
+                        <h3>temperature</h3>
+                        <i class='bx bx-plus'></i>
+                    </div>
+                    <ul class="task-list">
+                        <li class="completed">
+                            <div class="task-title">
+                                <img src="images/1-minute.png" style="height: 1.7rem;">
+                                <p class="temperature-color" id="1minute">30°C</p>|<p id="timeMinutes">20m-4PM-FRI</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="completed">
+                            <div class="task-title">
+                                <img src="images/60-minutes.png" style="height: 1.7rem;">
+                                <p class="temperature-color" id="1hour">30°C</p>|<p id="timeHours">4PM-FRI-25</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                        <li class="not-completed">
+                            <div class="task-title">
+                                <img src="images/calendar.png" style="height: 1.7rem;">
+                                <p class="temperature-color" id="1day">30°C</p>|<p id="timeDays">FRI-25-2023</p>
+                            </div>
+                            <i class='bx bx-dots-vertical-rounded'></i>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- End of Reminders-->
+
+            </div>
+
+        </main>
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paho-mqtt/1.0.1/mqttws31.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>

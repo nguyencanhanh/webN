@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP8266 Firmware Upload</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    input {
+      display: block;
+      margin: 10px 0;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>ESP8266 Firmware Upload</h1>
+    <input type="file" id="firmware" accept=".bin">
+    <button onclick="uploadFirmware()">Upload Firmware</button>
+  </div>
+
+  <script>
+    function uploadFirmware() {
+      var fileInput = document.getElementById('firmware');
+      var file = fileInput.files[0];
+
+      var formData = new FormData();
+      formData.append('firmware', file);
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/update', true);
+      xhr.onload = function () {
+        if (xhr.status === 200) {
+          console.log('Upload successful');
+        } else {
+          console.error('Upload failed');
+        }
+      };
+      xhr.send(formData);
+    }
+  </script>
+</body>
+
+</html>
